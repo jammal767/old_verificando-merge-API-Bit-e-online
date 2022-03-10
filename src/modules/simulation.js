@@ -652,8 +652,7 @@ class Simulation {
   ////////////////////////////////
   // Financiamento Simulação
   ///////////////////////////////
-  simulate({ entrada, mensal, semestral, chaves }) {
-    
+  simulate({ entrada, mensal, semestral, chaves }) {    
     return new Promise((resolve, reject) => {
       if (
         !entrada.toString() ||
@@ -839,7 +838,7 @@ class Simulation {
           mensalidades: this.valormensalteste,
         },
         semestrais: {
-          numParcelas: this.numSemestres - 1,
+          numParcelas: this.numSemestres - 2,
           valorParcela: this.valorsemestral,
           valorTotalSemestral: this.valorTotalSemestral,
           mensalidades: this.valorsemestralteste,
@@ -847,7 +846,7 @@ class Simulation {
        
         chaves: {
       
-          data: this.Meses[this.numTotalMeses - 1].valorMensal,
+          data: this.Meses[this.numTotalMeses + 1].valorMensal,
           valor: this.chavedescontoteste,
         },
       },
@@ -923,7 +922,7 @@ class Simulation {
         let semestral = this.valorTotalSemestral - totalad;
       
         const Semestral = this.Mesesteste.filter((f) => f.titulo === "Semestral");
-        let totalparc = Semestral.length - 1;
+        let totalparc = Semestral.length - 2;
         const valorsemestral = parseFloat((this.valorTotalSemestral / totalparc).toFixed(2));
         for (let a = totalparc; a >= 0; a--) {
           let decontosemestre = 0;
@@ -1009,7 +1008,7 @@ class Simulation {
       if (this.inputTotalSemestral === this.valorTotalSemestral) {  
         const Semestral = this.Mesesteste.filter((f) => f.titulo === "Semestral");
         const numparc = Semestral.length
-        let totalparc = Semestral.length - 1;
+        let totalparc = Semestral.length - 2;
         const valorsemestral = parseFloat((this.valorTotalSemestral / numparc).toFixed(2));
         var totalmeses = Semestral[totalparc].totalmeses;
         const valortotal = valoradiant;
@@ -1025,7 +1024,7 @@ class Simulation {
         const valortotal = parseFloat(((this.valorChaves - valordescontoteste) * -1).toFixed(2));
         const Semestral = this.Mesesteste.filter((f) => f.titulo === "Semestral");
         const numparc = Semestral.length
-        let totalparc = Semestral.length - 1;
+        let totalparc = Semestral.length - 2;
         const valorsemestral = parseFloat((this.valorTotalSemestral / numparc).toFixed(2));
         var totalmeses = Semestral[totalparc].totalmeses;
         const valorparcela = parseFloat((valorsemestral - valortotal).toFixed(2));
@@ -1054,7 +1053,7 @@ class Simulation {
     const valorsemestral = this.valorTotalSemestral / this.totalsemestre;
     this.valorsemestral = valorsemestral;
     
-    for (let b = 0; b <= (this.totalsemestre - 1); b++) {
+    for (let b = 0; b <= (this.totalsemestre - 1); b++) {   
       this.valorsemestralteste.push({
         data: Semestral[b].Mes,
         valor: parseFloat(valorsemestral.toFixed(2)),
@@ -1069,7 +1068,7 @@ class Simulation {
     const datainicialteste = new Date(datainicial);    
     let auxiliar = Math.floor((this.dataFinal.diff(datainicial, "days") / 365) * 12);
 
-    let numSemestrest = Math.ceil((auxiliar -1) / 6);
+    let numSemestrest = Math.ceil((auxiliar) / 6);
     let totalmeses = auxiliar;
     this.totalmeses = auxiliar - 1;
     this.numMeses = auxiliar - 1;
@@ -1079,7 +1078,7 @@ class Simulation {
     let mesinic = moment(datainicialteste, "DD/MM/YYYY");
     let mesinicd = moment(datainicialteste, "DD/MM/YYYY");
     this.Mesesteste = [];
-    let semestre = 1;
+    let semestre = 6;
     let totalmes = 0;   
     for (let a = 0; a <= totalmeses; a++) {
      
@@ -1192,7 +1191,7 @@ class Simulation {
     let somadescontos = 0;
     const Semestral = this.Mesesteste.filter((f) => f.titulo === "Semestral");
     
-    let totalparc = Semestral.length - 2;
+    let totalparc = Semestral.length - 1;
     const parcelas = Semestral.length - 1
     const valorsemestral = parseFloat((this.valorTotalSemestral / this.totalsemestre).toFixed(2));
     if (semestral === this.valorTotalSemestral) {
