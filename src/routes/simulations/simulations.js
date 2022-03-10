@@ -29,7 +29,7 @@ module.exports = (app) => {
       const { unitId } = req.params;
       const userId = req.decoded.user_id;
       const { entrada, mensal, semestral, chaves, additionals } = req.body
-
+      
       if (!entrada.toString() || !mensal.toString() || !semestral.toString() || !chaves.toString()) {
         res.status(422).json({
           error: true,
@@ -40,9 +40,10 @@ module.exports = (app) => {
       }
      
       const simulation = await new Simulation(unitId, additionals);
-
+    
       try {
         const result = await simulation.simulate({ entrada, mensal, semestral, chaves })
+       
         if (result) {
           registerLog(userId, `${__('Realizou uma simulação da unidade')}: "${result.unit.number}" na plataforma.`);
           res.status(200).send(result)
